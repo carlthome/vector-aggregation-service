@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -79,9 +80,19 @@ func main() {
 		// Return centroid as response.
 		result, _ := json.Marshal(u.RawVector().Data)
 		w.Write(result)
-	})
+}
 
-	// Start the HTTP server on port 8080
-	log.Println("Server listening on :8080...")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+func main() {
+	// Default port.
+	defaultPort := ":8080"
+	port := flag.String("port", defaultPort, "HTTP server port")
+	flag.Parse()
+
+	// Register routes.
+	http.HandleFunc("/status", statusHandler)
+	http.HandleFunc("/sum", sumHandler)
+
+	// Start HTTP server on configured port.
+	log.Printf("Server listening on %v\n", *port)
+	log.Fatal(http.ListenAndServe(*port, nil))
 }
