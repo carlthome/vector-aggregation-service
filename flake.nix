@@ -2,7 +2,7 @@
   description = "A simple Go package";
 
   # Nixpkgs / NixOS version to use.
-  inputs.nixpkgs.url = "nixpkgs/nixos-21.11";
+  inputs.nixpkgs.url = "nixpkgs/nixos-23.11";
 
   outputs = { self, nixpkgs }:
     let
@@ -48,7 +48,7 @@
             # remember to bump this hash when your dependencies change.
             # vendorHash = pkgs.lib.fakeHash;
 
-            vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
+            vendorHash = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
           };
         });
 
