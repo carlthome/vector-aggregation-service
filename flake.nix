@@ -59,7 +59,7 @@
         in
         {
           default = pkgs.mkShell {
-            buildInputs = with pkgs; [ go gopls gotools go-tools gotests ];
+            buildInputs = with pkgs; [ go gopls gotools go-tools gotests delve ];
           };
         });
     };
