@@ -4,10 +4,10 @@ This is a basic example of a web service that uses [gonum](https://www.gonum.org
 
 ## Usage
 
-To build, test and launch the service, run:
+To build and launch the service, run:
 
 ```sh
-nix run
+docker compose up
 ```
 
 and check that the service is live with
