@@ -8,6 +8,8 @@ import (
 	"os"
 	"reflect"
 	"testing"
+
+	"github.com/go-redis/redismock/v8"
 )
 
 func TestStatusEndpoint(t *testing.T) {
@@ -56,8 +58,13 @@ func TestCentroidEndpoint(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	redisClient, mock := redismock.NewClientMock()
+	mock.ExpectGet("state").SetVal("[0, 0, 0, 0, 0, 0]")
+
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(centroidHandler)
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		centroidHandler(w, r, redisClient)
+	})
 
 	handler.ServeHTTP(rr, req)
 
@@ -75,5 +82,9 @@ func TestCentroidEndpoint(t *testing.T) {
 	if !reflect.DeepEqual(centroid, expectedCentroid) {
 		t.Errorf("handler returned unexpected centroid: got %v want %v",
 			centroid, expectedCentroid)
+	}
+
+	if err := mock.ExpectationsWereMet(); err != nil {
+		t.Errorf("There were unfulfilled expectations: %s", err)
 	}
 }
