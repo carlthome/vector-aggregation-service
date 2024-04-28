@@ -31,7 +31,7 @@
           pkgs = nixpkgsFor.${system};
         in
         {
-          go-hello = pkgs.buildGoModule {
+          default = pkgs.buildGoModule {
             pname = "go-hello";
             inherit version;
             # In 'nix develop', we don't need a copy of the source tree
@@ -62,10 +62,5 @@
             buildInputs = with pkgs; [ go gopls gotools go-tools gotests ];
           };
         });
-
-      # The default package for 'nix build'. This makes sense if the
-      # flake provides only one package or there is a clear "main"
-      # package.
-      defaultPackage = forAllSystems (system: self.packages.${system}.go-hello);
     };
 }
