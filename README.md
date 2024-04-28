@@ -1,4 +1,4 @@
-# Vector summation service
+# Vector aggregation service
 
 This is a basic example of a web service that uses [gonum](https://www.gonum.org/) to compute statistics of JSON data.
 
@@ -25,10 +25,10 @@ which should return
 Then use the service with:
 
 ```sh
-curl -s -d @example.json localhost:8080/sum | jq
+curl -s -d @example.json localhost:8080/centroid | jq
 ```
 
-to compute and pretty print the average vector of the [input example](./example.json) data.
+to compute and pretty print a column-wise average vector of the [input example](./example.json) data.
 
 ## Develop
 

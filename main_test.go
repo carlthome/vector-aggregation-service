@@ -33,7 +33,7 @@ func TestStatusEndpoint(t *testing.T) {
 	}
 }
 
-func TestSumEndpoint(t *testing.T) {
+func TestCentroidEndpoint(t *testing.T) {
 	// Load example data from JSON file
 	file, err := os.Open("example.json")
 	if err != nil {
@@ -51,13 +51,13 @@ func TestSumEndpoint(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	req, err := http.NewRequest("POST", "/sum", bytes.NewReader(body))
+	req, err := http.NewRequest("POST", "/centroid", bytes.NewReader(body))
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	rr := httptest.NewRecorder()
-	handler := http.HandlerFunc(sumHandler)
+	handler := http.HandlerFunc(centroidHandler)
 
 	handler.ServeHTTP(rr, req)
 

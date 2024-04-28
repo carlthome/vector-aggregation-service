@@ -27,7 +27,7 @@ func statusHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
 }
 
-func sumHandler(w http.ResponseWriter, r *http.Request) {
+func centroidHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 		return
@@ -88,7 +88,7 @@ func main() {
 
 	// Register routes.
 	http.HandleFunc("/status", statusHandler)
-	http.HandleFunc("/sum", sumHandler)
+	http.HandleFunc("/centroid", centroidHandler)
 
 	// Start HTTP server on configured port.
 	log.Printf("Server listening on %v\n", *port)
